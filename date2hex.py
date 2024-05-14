@@ -2,46 +2,45 @@ from datetime import datetime, timedelta
 import hashlib
 
 def string_to_sha256_hex(string):
-    sha_signature = hashlib.sha256(string.encode()).hexdigest()
-    return sha_signature
+    return hashlib.sha256(string.encode()).hexdigest()
 
-# start time 1. Januar 1900.
-date = datetime(1900, 1, 1)
+# Constants
+START_DATE = datetime(1900, 1, 1)
+END_DATE = datetime.now()
+TEXT_FILE_NAME = "allDates2hex.txt"
+DATE_FORMATS = [
+    "%d.%m.%Y",  # DD.MM.YYYY
+    "%Y.%m.%d",  # YYYY.MM.DD
+    "%m.%d.%Y",  # MM.DD.YYYY
+    "%Y-%m-%d",  # YYYY-MM-DD
+    "%d-%m-%Y",  # DD-MM-YYYY
+    "%d-%m-%y",  # DD-MM-YY
+    "%m/%d/%y",  # MM/DD/YY
+    "%d/%m/%y",  # DD/MM/YY
+    "%d/%m/%Y",  # DD/MM/YYYY
+    "%m/%d/%Y",  # MM/DD/YYYY
+    "%A, %B %d, %Y",  # Monday, January 01, 1900
+    "%B %d, %Y"  # January 01, 1900
+]
 
-# open textfile
-textFileName = f"{'allDates2hex'}.txt"
+def generate_hashes_for_date(date):
+    return [string_to_sha256_hex(date.strftime(fmt)) for fmt in DATE_FORMATS]
 
-with open(textFileName, 'w') as f:
+def generate_hashes_for_seconds(date):
+    next_day = date + timedelta(days=1)
+    hashes = []
+    while date < next_day:
+        hashes.append(string_to_sha256_hex(str(date)))
+        date += timedelta(seconds=1)
+    return hashes
 
-    # loop until now
-
-    while date <= datetime.now():
-
-        # different formats
-
-        f.write(string_to_sha256_hex(str(date.strftime("%d.%m.%Y"))) + '\n')  # DD.MM.YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%Y.%m.%d"))) + '\n')  # YYYY.MM.DD
-        f.write(string_to_sha256_hex(str(date.strftime("%m.%d.%Y"))) + '\n')  # MM.DD.YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%Y-%m-%d"))) + '\n')  # YYYY-MM-DD
-        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%Y"))) + '\n')  # DD-MM-YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%y"))) + '\n')  # DD-MM-YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%y"))) + '\n')  # MM/DD/YY
-        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%y"))) + '\n')  # DD/MM/YY
-        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%Y"))) + '\n')  # DD/MM/YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%Y"))) + '\n')  # MM/DD/YYYY
-        f.write(string_to_sha256_hex(str(date.strftime("%A, %B %d, %Y"))) + '\n')  # Monday, January 01, 1900
-        f.write(string_to_sha256_hex(str(date.strftime("%B %d, %Y"))) + '\n')  # January 01, 1900
-
-        nextDay = date + timedelta(days=1)
-        dateInSeconds= date
+with open(TEXT_FILE_NAME, 'w') as f:
+    current_date = START_DATE
+    while current_date <= END_DATE:
+        date_hashes = generate_hashes_for_date(current_date)
+        f.write('\n'.join(date_hashes) + '\n')
         
-        while dateInSeconds < nextDay:
-            
-            f.write(string_to_sha256_hex(str(dateInSeconds)) + '\n')
-            # Increment current date by one second
-            dateInSeconds += timedelta(seconds=1)
+        second_hashes = generate_hashes_for_seconds(current_date)
+        f.write('\n'.join(second_hashes) + '\n')
         
-        
-        # add next day
-
-        date += timedelta(days=1)
+        current_date += timedelta(days=1)
