@@ -19,30 +19,18 @@ with open(textFileName, 'w') as f:
 
         # different formats
 
-        f.write(string_to_sha256_hex(str(date.strftime("%d.%m.%Y"))))  # DD.MM.YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%Y.%m.%d"))))  # YYYY.MM.DD
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%m.%d.%Y"))))  # MM.DD.YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%Y-%m-%d"))))  # YYYY-MM-DD
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%Y"))))  # DD-MM-YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%y"))))  # DD-MM-YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%y"))))  # MM/DD/YY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%y"))))  # DD/MM/YY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%Y"))))  # DD/MM/YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%Y"))))  # MM/DD/YYYY
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%A, %B %d, %Y"))))  # Monday, January 01, 1900
-        f.write('\n')
-        f.write(string_to_sha256_hex(str(date.strftime("%B %d, %Y"))))  # January 01, 1900
-        f.write('\n')
+        f.write(string_to_sha256_hex(str(date.strftime("%d.%m.%Y"))) + '\n')  # DD.MM.YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%Y.%m.%d"))) + '\n')  # YYYY.MM.DD
+        f.write(string_to_sha256_hex(str(date.strftime("%m.%d.%Y"))) + '\n')  # MM.DD.YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%Y-%m-%d"))) + '\n')  # YYYY-MM-DD
+        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%Y"))) + '\n')  # DD-MM-YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%d-%m-%y"))) + '\n')  # DD-MM-YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%y"))) + '\n')  # MM/DD/YY
+        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%y"))) + '\n')  # DD/MM/YY
+        f.write(string_to_sha256_hex(str(date.strftime("%d/%m/%Y"))) + '\n')  # DD/MM/YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%m/%d/%Y"))) + '\n')  # MM/DD/YYYY
+        f.write(string_to_sha256_hex(str(date.strftime("%A, %B %d, %Y"))) + '\n')  # Monday, January 01, 1900
+        f.write(string_to_sha256_hex(str(date.strftime("%B %d, %Y"))) + '\n')  # January 01, 1900
 
         nextDay = date + timedelta(days=1)
         dateInSeconds= date
