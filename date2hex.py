@@ -37,8 +37,7 @@ with open(textFileName, 'w') as f:
         
         while dateInSeconds < nextDay:
             
-            f.write(string_to_sha256_hex(str(dateInSeconds)))
-            f.write('\n')
+            f.write(string_to_sha256_hex(str(dateInSeconds)) + '\n')
             # Increment current date by one second
             dateInSeconds += timedelta(seconds=1)
         
