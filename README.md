@@ -1,6 +1,6 @@
 # DateHexConverter
 
-![DateHexConverter Icon](Pic2Hex.png)
+![DateHexConverter Icon](DateHexConverter.png)
 
 The program is a specialized Python application designed to generate dates from a specific start date up until the present day. It utilizes the built-in datetime module in Python to incrementally generate these dates.
 Each generated date is rendered in multiple formats, providing versatile representations suitable for a variety of applications or requirements. Formats include standard notations like DD.MM.YYYY, YYYY-MM-DD, MM/DD/YY, as well as a complete written form with full weekday and month names.
